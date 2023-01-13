@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Calculator Project</title>
+</head>
+  <body>
+
+    <div class="main">
+      <div class="display">
+        <input type="text">
+      </div>
+      <div class="delete">
+        <button>CLEAR</button>
+        <button>DELETE</button>
+      </div>
+      <div class="buttons">
+        <button>7</button>
+        <button>8</button>
+        <button>9</button>
+        <button data-op="division">/</button>
+        <button>4</button>
+        <button>5</button>
+        <button>6</button>
+        <button data-op="multiply">x</button>
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button data-op="subtract">-</button>
+        <button>0</button>
+        <button>.</button>
+        <button>=</button>
+        <button data-op="add">+</button>
+      </div>
+
+    </div>
+
+  <script>
+    const input = document.querySelector('input');
+    const keys = document.querySelectorAll('.buttons button');
+    const operators = document.querySelectorAll('.operators');
+
+
+
+    let firstOperating;
+    let operator = '';
+
+    let currentValue;
+    let total;
+
+    let x = 0;
+
+    keys.forEach(btn => {
+      btn.addEventListener('click', () => {
+
+        input.value += btn.textContent;
+
+
+        if (btn.textContent === '=') {
+          currentValue = input.value;
+          currentValue.split()
+        }
+
+
+
+      })
+    })
+
+  
+  </script>
+    <script src="main.js"></script>
+  </body>
+</html>
