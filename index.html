@@ -11,11 +11,11 @@
 
     <div class="main">
       <div class="display">
-        <input type="text">
+        <input type="text" id="display" disabled>
       </div>
       <div class="delete">
-        <button>CLEAR</button>
-        <button>DELETE</button>
+        <button id="btnClear">CLEAR</button>
+        <button id="btnDelete">DELETE</button>
       </div>
       <div class="buttons">
         <button>7</button>
@@ -39,13 +39,9 @@
     </div>
 
   <script>
-    const input = document.querySelector('input');
+    const display = document.querySelector('#display');
     const keys = document.querySelectorAll('.buttons button');
-    const operators = document.querySelectorAll('.operators');
 
-
-
-    let firstOperating;
     let operator = '';
 
     let currentValue;
@@ -56,21 +52,55 @@
     keys.forEach(btn => {
       btn.addEventListener('click', () => {
 
-        input.value += btn.textContent;
+        if (btn.textContent !== '=') {
+          display.value += btn.textContent;
+          if (x <= 1) currentValue = display.value;
+            if (!(btn.textContent === '/' || btn.textContent === 'x' || btn.textContent === '-' || btn.textContent === '+') && x >= 2){
+             currentValue += btn.textContent;
+          };
+        };
 
+        if (btn.textContent === '/' || btn.textContent === 'x' || btn.textContent === '-' || btn.textContent === '+') {
+          console.log(operator, total, currentValue)
+          if (x === 1) splitString();
+          else if (x >= 2) operate(operator, total, currentValue);
+
+          operator = btn.textContent;
+
+          x++;
+        };
 
         if (btn.textContent === '=') {
-          currentValue = input.value;
-          currentValue.split()
-        }
+          console.log(operator, total, currentValue);
 
+          if (x === 0) return;
+          if (x === 1) splitString();
+          else if (x >= 2) operate(operator, total, currentValue);
+          if (display.value !== 'bruh') display.value = total;
+        };
 
-
-      })
-    })
-
-  
+      });
+    });
   </script>
-    <script src="main.js"></script>
+
+  <script>
+    const btnClear = document.querySelector('#btnClear');
+    const btnDelete = document.querySelector('#btnDelete');
+
+    btnClear.addEventListener('click', () => {
+      clearData();
+    });
+
+    btnDelete.addEventListener('click', () => {
+      currentValue = currentValue.slice(0, -1)
+
+      display.value = display.value.slice(0, -1)
+
+      console.log(currentValue);
+    });
+
+  </script>
+
+  <script src="main.js"></script>
   </body>
 </html>

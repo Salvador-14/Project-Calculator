@@ -24,6 +24,7 @@ input {
   font-weight: bold;
   overflow: hidden;
   border: none;
+  background-color: white;
 }
 
 .delete {
