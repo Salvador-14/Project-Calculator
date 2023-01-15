@@ -27,12 +27,12 @@ input {
   background-color: white;
 }
 
-.delete {
+.cleaning {
   display: flex;
   justify-content: center;
 }
 
-.delete button {
+.cleaning button {
   flex: 1;
   height: 60px;
   margin-bottom: 2px;

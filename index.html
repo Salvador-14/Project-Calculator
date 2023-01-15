@@ -1,106 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <title>Calculator Project</title>
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Calculator Project</title>
+  </head>
   <body>
-
     <div class="main">
       <div class="display">
         <input type="text" id="display" disabled>
       </div>
-      <div class="delete">
-        <button id="btnClear">CLEAR</button>
-        <button id="btnDelete">DELETE</button>
+      <div class="cleaning">
+        <button id="clear">CLEAR</button>
+        <button id="delete">DELETE</button>
       </div>
       <div class="buttons">
-        <button>7</button>
-        <button>8</button>
-        <button>9</button>
-        <button data-op="division">/</button>
-        <button>4</button>
-        <button>5</button>
-        <button>6</button>
-        <button data-op="multiply">x</button>
-        <button>1</button>
-        <button>2</button>
-        <button>3</button>
-        <button data-op="subtract">-</button>
-        <button>0</button>
-        <button>.</button>
-        <button>=</button>
-        <button data-op="add">+</button>
+        <button class="number">7</button>
+        <button class="number">8</button>
+        <button class="number">9</button>
+        <button class="operator">/</button>
+        <button class="number">4</button>
+        <button class="number">5</button>
+        <button class="number">6</button>
+        <button class="operator">x</button>
+        <button class="number">1</button>
+        <button class="number">2</button>
+        <button class="number">3</button>
+        <button class="operator">-</button>
+        <button class="number">0</button>
+        <button class="number">.</button>
+        <button class="equal">=</button>
+        <button class="operator">+</button>
       </div>
 
     </div>
 
-  <script>
-    const display = document.querySelector('#display');
-    const keys = document.querySelectorAll('.buttons button');
+    <script>
+      const display = document.querySelector('#display');
+      const numbers = document.querySelectorAll('.number');
+      const operators = document.querySelectorAll('.operator');
+      const cleaning = document.querySelectorAll('.cleaning button');
+      const equal = document.querySelector('.equal');
 
-    let operator = '';
+      let operation = [];
+      let noExtraSigns = '';
+      let total = '';
 
-    let currentValue;
-    let total;
+      numbers.forEach(number => number.addEventListener('click', () => {
+        if (number.textContent === '.' && noExtraSigns.match(/\./)) return;
+        display.value += number.textContent;
 
-    let x = 0;
+        noExtraSigns += number.textContent;
+      }));
+      
 
-    keys.forEach(btn => {
-      btn.addEventListener('click', () => {
+      operators.forEach(operator => operator.addEventListener('click', () => {
+        if (noExtraSigns.match(/\/|\x|\-|\+/) || !noExtraSigns) return;
 
-        if (btn.textContent !== '=') {
-          display.value += btn.textContent;
-          if (x <= 1) currentValue = display.value;
-            if (!(btn.textContent === '/' || btn.textContent === 'x' || btn.textContent === '-' || btn.textContent === '+') && x >= 2){
-             currentValue += btn.textContent;
-          };
+        display.value += operator.textContent;
+        noExtraSigns = '';
+      }));
+
+      cleaning.forEach(btn => btn.addEventListener('click', () => {
+        if (btn.id === 'clear') clearData();
+        if (btn.id === 'delete')  {
+          display.value = display.value.slice(0, -1);
         };
+      }));
 
-        if (btn.textContent === '/' || btn.textContent === 'x' || btn.textContent === '-' || btn.textContent === '+') {
-          console.log(operator, total, currentValue)
-          if (x === 1) splitString();
-          else if (x >= 2) operate(operator, total, currentValue);
+      equal.addEventListener('click', () => {
+        let operationElements = '';
 
-          operator = btn.textContent;
-
-          x++;
-        };
-
-        if (btn.textContent === '=') {
-          console.log(operator, total, currentValue);
-
-          if (x === 0) return;
-          if (x === 1) splitString();
-          else if (x >= 2) operate(operator, total, currentValue);
-          if (display.value !== 'bruh') display.value = total;
-        };
-
+        for (const item of display.value) {
+          if (item === '/' || item === 'x' || item === '-' || item === '+') {
+            operation.push(operationElements);
+            operation.push(item);
+            operationElements = '';
+          } else operationElements += item;
+        }
+        
+        if (operationElements) operation.push(operationElements);
+        operationElements = '';
+        
+        spliceArray(operation);
+        if (display.value !== 'bruh') display.value = total;
       });
-    });
-  </script>
 
-  <script>
-    const btnClear = document.querySelector('#btnClear');
-    const btnDelete = document.querySelector('#btnDelete');
+      window.addEventListener('keydown', (e) => {
+       /*  if (e.key == []) return;
+        display.value += e.key; */
+      });
 
-    btnClear.addEventListener('click', () => {
-      clearData();
-    });
-
-    btnDelete.addEventListener('click', () => {
-      currentValue = currentValue.slice(0, -1)
-
-      display.value = display.value.slice(0, -1)
-
-      console.log(currentValue);
-    });
-
-  </script>
-
-  <script src="main.js"></script>
+    </script>
+    <script src="main.js"></script>
   </body>
 </html>

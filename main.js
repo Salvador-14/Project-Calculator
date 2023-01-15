@@ -17,38 +17,47 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-  total = a / b;
-  console.log(total)
-}
-
-function operate(operator, a, b) {
-  a = Number(a);
-  b = Number(b);
-
-  if (operator === '/' && b === 0) {
+  if (b === 0) {
     display.value = 'bruh';
     return;
   }
  
+  total = a / b;
+  console.log(total)
+}
+
+function operate(a, operator, b) {
+  a = Number(a);
+  b = Number(b);
+
   if (operator === '+') add(a, b);
   if (operator === '-') subtract(a, b);
   if (operator === 'x') multiply(a, b);
   if (operator === '/') divide(a, b);
 
-  currentValue = '';
-  operator = '';
-}
-
-
-function splitString() {
-  currentValue = currentValue.split(/\/|\x|\-|\+/);
-  operate(operator, currentValue[0], currentValue[1]);
 }
 
 function clearData() {
   display.value = '';
-  currentValue = '';
-  operator = '';
-  x = 0;
+  operation = [];
+  noExtraSigns = '';
   total = '';
+}
+
+function spliceArray(array) {
+  let currentOp;
+
+  let x = 0;
+  while (array.length > 0) {
+
+    if (x === 0) {
+      currentOp = array.splice(0, 3)
+      operate(currentOp[0], currentOp[1], currentOp[2]);
+    }
+
+    currentOp = array.splice(0, 2)
+    operate(total, currentOp[0], currentOp[1])
+
+    x++;
+  }
 }
