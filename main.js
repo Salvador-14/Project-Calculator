@@ -1,19 +1,13 @@
 function add(a, b) {
    total = a + b;
-   console.log(total)
-
 } 
 
 function subtract(a, b) {
   total = a - b;
-  console.log(total)
-
 }
 
 function multiply(a, b) {
   total = a * b;
-  console.log(total)
-
 }
 
 function divide(a, b) {
@@ -21,9 +15,7 @@ function divide(a, b) {
     display.value = 'bruh';
     return;
   }
- 
   total = a / b;
-  console.log(total)
 }
 
 function operate(a, operator, b) {
