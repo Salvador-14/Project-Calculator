@@ -3,28 +3,30 @@ body {
   justify-content: center;
 }
 .main {
-  height: 570px;
+  height: 525px;
   width: 450px;
   background-color: white;
   border: 5px solid rgb(33, 58, 132) ;
   border-radius: 15px;
   box-shadow: 0 0 20px 1px rgb(0, 0, 0);
+  padding: 15px;
 }
 
 .display {
   height: 100px;
   display: flex;
-  flex-direction: row-reverse;
   margin-right: 10px;
-  /* background-color: lightgray; */
 }
 
 input {
-  font-size: 35px;
+  font-size: 37px;
   font-weight: bold;
   overflow: hidden;
   border: none;
   background-color: white;
+  border-radius: 10px;
+  height: 82px;
+  color: royalblue;
 }
 
 .cleaning {
@@ -36,6 +38,8 @@ input {
   flex: 1;
   height: 60px;
   margin-bottom: 2px;
+  border-radius: 10px;
+  border: none;
 }
 
 .buttons {
@@ -43,15 +47,47 @@ input {
   flex-wrap: wrap;
   justify-content: center;
   background-color: #F2F2F2;
-  /* border: 15px solid lightgray ;
-  border-radius: 30px; */
+  border-radius: 15px;
+  gap: 16px;
 }
 
 .buttons button {
-  width: 100px;
-  height: 100px;
+  width: 86px;
+  height: 79px;
   color: #464646;
-  font-size: larger;
   font-weight: bold;
+  border-radius: 20px;
+  border: none;
+  font-size: 35px;
 }
 
+.clearD:hover,
+.buttons button:hover {
+  transition: 0.6s;
+  background-color: rgb(162, 176, 191);
+}
+
+.clearD:active,
+.buttons button:active {
+  transform: scale(1.1);
+  background-color: lightslategray;
+  color: white !important;
+}
+
+.equal,
+.operator {
+  color: royalblue !important;
+}
+
+.operator:hover,
+.equal:hover {
+  transition: 0.6s;
+  background-color: #becfff !important;
+}
+
+.operator:active,
+.equal:active {
+  transform: scale(1.1); 
+  background-color: royalblue !important;
+  color: white !important;
+}
