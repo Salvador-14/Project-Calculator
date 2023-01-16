@@ -62,7 +62,7 @@
           return;
         }
 
-        //if the button value is some operator or dot, but is already one on the current operand, return, to avoid repetition
+        //if the button's value is some operator or dot and there is already one on the current operand, return, to avoid repetition
         if ((/\/|\x|\-|\+/).test(btn)) {
           if (noExtraSigns.match(/\/|\x|\-|\+/) || !display.value) return;
         }
