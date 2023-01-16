@@ -39,60 +39,60 @@
 
     <script>
       const display = document.querySelector('#display');
-      const numbers = document.querySelectorAll('.number');
-      const operators = document.querySelectorAll('.operator');
-      const cleaning = document.querySelectorAll('.cleaning button');
       const equal = document.querySelector('.equal');
+      const buttons = document.querySelectorAll('button');
 
       let operation = [];
       let noExtraSigns = '';
       let total = '';
 
-      numbers.forEach(number => number.addEventListener('click', () => {
-        if (number.textContent === '.' && noExtraSigns.match(/\./)) return;
-        display.value += number.textContent;
+      function listener(e) {
+        let btn = '';
 
-        noExtraSigns += number.textContent;
-      }));
-      
+        if (e.type === 'click') btn = e.target.textContent;
+        else if (e.type === 'keydown') btn = e.key; 
 
-      operators.forEach(operator => operator.addEventListener('click', () => {
-        if (noExtraSigns.match(/\/|\x|\-|\+/) || !noExtraSigns) return;
+        if (btn === '=') return;
 
-        display.value += operator.textContent;
+        if (btn === 'CLEAR') {
+          clearData(0);
+          return;
+        } else if (btn === 'DELETE' || btn === 'Backspace') {
+          clearData(1);
+          return;
+        }
+
+        //if the button value is some operator or dot, but is already one on the current operand, return, to avoid repetition
+        if ((/\/|\x|\-|\+/).test(btn)) {
+          if (noExtraSigns.match(/\/|\x|\-|\+/) || !display.value) return;
+        }
+        if (btn === '.' && noExtraSigns.match(/\./)) return;
         noExtraSigns = '';
-      }));
 
-      cleaning.forEach(btn => btn.addEventListener('click', () => {
-        if (btn.id === 'clear') clearData();
-        if (btn.id === 'delete')  {
-          display.value = display.value.slice(0, -1);
-        };
-      }));
+        display.value += btn;
+        noExtraSigns += btn;
+      } 
 
       equal.addEventListener('click', () => {
-        let operationElements = '';
+        let operationItem = '';
 
         for (const item of display.value) {
           if (item === '/' || item === 'x' || item === '-' || item === '+') {
-            operation.push(operationElements);
+            operation.push(operationItem);
             operation.push(item);
-            operationElements = '';
-          } else operationElements += item;
+            operationItem = '';
+          } else operationItem += item;
         }
         
-        if (operationElements) operation.push(operationElements);
-        operationElements = '';
+        if (operationItem) operation.push(operationItem);
+        operationItem = '';
         
-        spliceArray(operation);
+        createOperation(operation);
         if (display.value !== 'bruh') display.value = total;
       });
 
-      window.addEventListener('keydown', (e) => {
-       /*  if (e.key == []) return;
-        display.value += e.key; */
-      });
-
+      buttons.forEach(btn => btn.addEventListener('click', listener)); 
+      window.addEventListener('keydown', listener);
     </script>
     <script src="main.js"></script>
   </body>

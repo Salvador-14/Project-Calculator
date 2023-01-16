@@ -29,14 +29,7 @@ function operate(a, operator, b) {
 
 }
 
-function clearData() {
-  display.value = '';
-  operation = [];
-  noExtraSigns = '';
-  total = '';
-}
-
-function spliceArray(array) {
+function createOperation(array) {
   let currentOp;
 
   let x = 0;
@@ -51,5 +44,18 @@ function spliceArray(array) {
     operate(total, currentOp[0], currentOp[1])
 
     x++;
+  }
+}
+
+function clearData(type) {
+  if (type) {
+    display.value = display.value.slice(0, -1);
+    noExtraSigns = noExtraSigns.slice(0, -1);
+  } else {
+    display.value = '';
+    operation = [];
+    noExtraSigns = '';
+    total = '';
+    operationItem = '';
   }
 }
